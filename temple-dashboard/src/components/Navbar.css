@@ -200,3 +200,54 @@
 
 
 
+/* Right side container */
+.nav-right {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+/* Auth buttons */
+.auth-buttons {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.login-btn, .signup-btn {
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.login-btn {
+  background: transparent;
+  border: 1px solid #8e44ad;
+  color: #8e44ad;
+}
+
+.login-btn:hover {
+  background: rgba(142, 68, 173, 0.1);
+}
+
+.signup-btn {
+  background: #8e44ad;
+  border: 1px solid #8e44ad;
+  color: white;
+}
+
+.signup-btn:hover {
+  background: #7d3c98;
+  border-color: #7d3c98;
+}
+
+/* Adjust search bar width */
+.nav-search {
+  width: 200px;
+}
+
+.divine-navbar {
+  z-index: 100;
+  position: relative;
+}

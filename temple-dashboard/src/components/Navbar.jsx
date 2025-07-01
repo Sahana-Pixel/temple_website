@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import "./Navbar.css";
 import { Link } from 'react-router-dom';
+import AuthModal from './AuthModal';
 
 const Navbar = () => {
   const navigate = useNavigate();
@@ -9,8 +10,21 @@ const Navbar = () => {
   const [suggestions, setSuggestions] = useState([]);
   const [showSuggestions, setShowSuggestions] = useState(false);
   const searchRef = useRef(null);
-
+  const [authMode, setAuthMode] = useState(null); // 'login' or 'signup'
   
+  // login/signup
+   const handleAuthClick = (mode) => {
+    setAuthMode(mode);
+  };
+
+  const closeAuthModal = (switchToMode = null) => {
+    if (switchToMode) {
+      setAuthMode(switchToMode);
+    } else {
+      setAuthMode(null);
+    }
+  };
+
 
   // Famous temples data
   const famousTemples = [
@@ -69,23 +83,24 @@ const Navbar = () => {
    const handleSuggestionClick = (temple) => {
     setSearchQuery(temple.name);
     setShowSuggestions(false);
-    navigate(`/temple/${temple.id}`); // This is the key change
+    navigate(`/temple/${temple.id}`); 
   };
 
   return (
+    <>
     <nav className="divine-navbar">
       <div className="nav-brand">
         <span>Divine Darshan</span>
       </div>
 
       <ul className="nav-links">
-  <li><Link to="/">Home</Link></li>
-  <li><Link to="/live-darshan">Live Darshan</Link></li>
-  <li><Link to="/pooja-booking">Pooja Booking</Link></li>
-  <li><Link to="/festivals">Festivals</Link></li>
-</ul>
+        <li><Link to="/">Home</Link></li>
+        <li><Link to="/live-darshan">Live Darshan</Link></li>
+        <li><Link to="/pooja-booking">Pooja Booking</Link></li>
+        <li><Link to="/festivals">Festivals</Link></li>
+      </ul>
 
-
+     <div className="nav-right">
       <div className="nav-search" ref={searchRef}>
         <input 
           type="text" 
@@ -120,7 +135,20 @@ const Navbar = () => {
           </div>
         )}
       </div>
+      <div className="auth-buttons">
+          <button className="login-btn" onClick={() => handleAuthClick('login')}>
+            Login
+          </button>
+          <button className="signup-btn" onClick={() => handleAuthClick('signup')}>
+            Sign Up
+          </button>
+        </div>
+      </div>
     </nav>
+    {authMode && (
+        <AuthModal mode={authMode} onClose={closeAuthModal} />
+      )}
+      </>
   );
 };
 
